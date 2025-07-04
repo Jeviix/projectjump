@@ -52,13 +52,14 @@ const ScaryJumpscare = ({ onJumpscareComplete }: ScaryJumpscareProps) => {
   }, []);
 
   return (
-    <div className={`fixed inset-0 z-50 ${isFlashing ? 'jumpscare-flash' : 'bg-scary-dark'}`}>
+    <div className="fixed inset-0 w-screen h-screen z-50 bg-black">
       {showJumpscare && (
-        <div className="absolute inset-0 flex items-center justify-center shake">
+        <div className="absolute inset-0 w-full h-full flex items-center justify-center shake" style={{background: 'black'}}>
           <img 
             src={jumpscareImage} 
             alt="JUMPSCARE!" 
-            className="w-full h-full object-cover jumpscare-pop"
+            className="absolute inset-0 w-full h-full object-cover jumpscare-pop"
+            style={{background: 'black', display: 'block'}}
           />
           {/* Flash overlay for pop effect */}
           <div className="absolute inset-0 pointer-events-none jumpscare-flash-anim" />
