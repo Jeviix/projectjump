@@ -132,24 +132,24 @@ const Index = () => {
   }
 
   return (
-    <div className={`min-h-screen w-full flex items-center justify-center ${bg}`} style={{height:'100vh',width:'100vw'}}
-      onClick={() => {
-        if (phase === 'intro') handleStart();
-        else if (phase === 'waiting' || phase === 'ready') handleTestClick();
-        else if (phase === 'tooSoon' || phase === 'result') handleRetry();
-      }}
-    >
-      {phase !== 'jumpscare' ? (
+    phase === 'jumpscare' ? (
+      <ScaryJumpscare onJumpscareComplete={() => {}} />
+    ) : (
+      <div className={`min-h-screen w-full flex items-center justify-center ${bg}`} style={{height:'100vh',width:'100vw'}}
+        onClick={() => {
+          if (phase === 'intro') handleStart();
+          else if (phase === 'waiting' || phase === 'ready') handleTestClick();
+          else if (phase === 'tooSoon' || phase === 'result') handleRetry();
+        }}
+      >
         <div className="w-full h-full flex flex-col items-center justify-center select-none">
           {content}
           {(phase === 'result' || phase === 'tooSoon') && (
             <button className="absolute top-4 right-4 px-4 py-2 bg-white/20 text-white rounded" onClick={e => {e.stopPropagation();handleReset();}}>Reset</button>
           )}
         </div>
-      ) : (
-        <ScaryJumpscare onJumpscareComplete={() => {}} />
-      )}
-    </div>
+      </div>
+    )
   );
 };
 
