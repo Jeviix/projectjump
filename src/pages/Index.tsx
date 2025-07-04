@@ -76,7 +76,7 @@ const Index = () => {
           style={{ zIndex: 9999 }}
         >
           <div className="max-w-lg w-full p-8 rounded-2xl shadow-2xl border border-white/20 bg-white/10 backdrop-blur-lg flex flex-col items-center gap-6 animate-fade-in">
-            <h2 className="text-4xl font-extrabold mb-2 drop-shadow-lg tracking-tight">Reaction Test</h2>
+            <h2 className="text-4xl font-extrabold mb-2 drop-shadow-lg tracking-tight">VALORANT REACTION TIME TEST</h2>
             <p className="mb-2 text-lg text-white/80 font-medium text-center">Wait for the screen to turn green, then click as fast as you can!</p>
             {/* Progress Bar */}
             <div className="w-full h-3 bg-white/20 rounded-full overflow-hidden shadow-inner">
