@@ -8,35 +8,43 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 0 0% 5%;
+    --foreground: 0 0% 95%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 0 85% 45%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 85%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 60%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 0 85% 35%;
+    --accent-foreground: 0 0% 98%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 0 85% 45%;
 
     --radius: 0.5rem;
+
+    /* Scary theme colors */
+    --scary-red: 0 85% 35%;
+    --scary-red-bright: 0 85% 55%;
+    --scary-dark: 0 0% 3%;
+    --scary-blood: 0 100% 25%;
+    --glitch-green: 120 100% 50%;
+    --glitch-blue: 240 100% 50%;
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +109,110 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    overflow: hidden;
+  }
+}
+
+@layer components {
+  .glitch {
+    position: relative;
+    animation: glitch-skew 1s infinite linear alternate-reverse;
+  }
+
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .glitch::before {
+    animation: glitch-top 1s infinite linear alternate-reverse;
+    clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+    transform: translate(-2px);
+    color: hsl(var(--glitch-green));
+  }
+
+  .glitch::after {
+    animation: glitch-bottom 1.5s infinite linear alternate-reverse;
+    clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+    transform: translate(2px);
+    color: hsl(var(--glitch-blue));
+  }
+
+  @keyframes glitch-top {
+    2%, 64% { transform: translate(2px, -2px); }
+    4%, 60% { transform: translate(-2px, 2px); }
+    62% { transform: translate(13px, -1px) skew(-13deg); }
+  }
+
+  @keyframes glitch-bottom {
+    2%, 64% { transform: translate(-2px, 0); }
+    4%, 60% { transform: translate(-2px, 0); }
+    62% { transform: translate(-22px, 5px) skew(21deg); }
+  }
+
+  @keyframes glitch-skew {
+    2%, 64% { transform: skew(0deg); }
+    4%, 60% { transform: skew(-1deg); }
+    62% { transform: skew(0deg); }
+  }
+
+  .blood-drip {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .blood-drip::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, 
+      transparent 0%, 
+      transparent 70%, 
+      hsl(var(--scary-blood)) 85%, 
+      hsl(var(--scary-red-bright)) 100%);
+    opacity: 0.8;
+    animation: blood-flow 3s ease-in-out infinite;
+  }
+
+  @keyframes blood-flow {
+    0%, 100% { transform: translateY(100%); }
+    50% { transform: translateY(0%); }
+  }
+
+  .jumpscare-flash {
+    animation: flash 0.1s ease-in-out 5;
+  }
+
+  @keyframes flash {
+    0%, 100% { background-color: hsl(var(--scary-dark)); }
+    50% { background-color: hsl(var(--scary-red-bright)); }
+  }
+
+  .shake {
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) infinite;
+  }
+
+  @keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+  }
+
+  .dancing {
+    animation: dance 1s ease-in-out infinite alternate;
+  }
+
+  @keyframes dance {
+    0% { transform: translateY(0px) rotate(-2deg); }
+    100% { transform: translateY(-20px) rotate(2deg); }
   }
 }
