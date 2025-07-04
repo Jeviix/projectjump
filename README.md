@@ -2,21 +2,19 @@
 
 ## Project info
 
-**URL**: https://jeeevi.dev/projects/24d4bf3d-82c1-4f4e-b8a1-14cd21ff7f26
-
 ## How can I edit this code?
 
 There are several ways of editing your application.
 
-**Use jeeevi**
+**Use the online editor**
 
-Simply visit the [jeeevi Project](https://jeeevi.dev/projects/24d4bf3d-82c1-4f4e-b8a1-14cd21ff7f26) and start prompting.
+Simply visit the online project editor and start prompting.
 
-Changes made via jeeevi will be committed automatically to this repo.
+Changes made via the online editor will be committed automatically to this repo.
 
 **Use your preferred IDE**
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in jeeevi.
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in the online editor.
 
 The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
@@ -62,12 +60,12 @@ This project is built with:
 
 ## How can I deploy this project?
 
-Simply open [jeeevi](https://jeeevi.dev/projects/24d4bf3d-82c1-4f4e-b8a1-14cd21ff7f26) and click on Share -> Publish.
+Simply open the online editor and click on Share -> Publish.
 
-## Can I connect a custom domain to my jeeevi project?
+## Can I connect a custom domain to my project?
 
 Yes, you can!
 
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
-Read more here: [Setting up a custom domain](https://docs.jeeevi.dev/tips-tricks/custom-domain#step-by-step-guide)
+Read more here: [Setting up a custom domain](https://docs.example.com/tips-tricks/custom-domain#step-by-step-guide)
