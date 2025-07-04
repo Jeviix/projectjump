@@ -14,7 +14,7 @@ const HamoodDancer = ({ hamoodAudioSrc }: HamoodDancerProps) => {
       if (hamoodAudioSrc && audioRef.current) {
         try {
           audioRef.current.loop = true;
-          audioRef.current.volume = 0.8;
+          audioRef.current.volume = 1.0;
           await audioRef.current.play();
           setIsPlaying(true);
         } catch (error) {
