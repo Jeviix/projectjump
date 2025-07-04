@@ -4,11 +4,8 @@ import ScaryBackground from '@/components/ScaryBackground';
 import HamoodDancer from '@/components/HamoodDancer';
 
 const Index = () => {
-  const [showJumpscare, setShowJumpscare] = useState(true);
-  const [jumpscareComplete, setJumpscareComplete] = useState(false);
-  
-  // Add your Hamood Habibi MP3 URL here
-  const hamoodAudioSrc = ""; // Replace with your MP3 URL when you upload it
+  // Your Hamood Habibi MP3 file
+  const hamoodAudioSrc = "/hamouddddddddd.mp3";
 
   useEffect(() => {
     // Disable scrolling
@@ -19,32 +16,16 @@ const Index = () => {
     };
   }, []);
 
-  const handleJumpscareComplete = () => {
-    setShowJumpscare(false);
-    setJumpscareComplete(true);
-  };
-
   return (
     <div className="min-h-screen relative bg-scary-dark overflow-hidden">
       {/* Scary Background */}
       <ScaryBackground />
       
-      {/* Jumpscare Component */}
-      {showJumpscare && (
-        <ScaryJumpscare onJumpscareComplete={handleJumpscareComplete} />
-      )}
+      {/* Looping Jumpscare Component - runs forever */}
+      <ScaryJumpscare onJumpscareComplete={() => {}} />
       
-      {/* Hamood Dancer (shows after jumpscare) */}
-      {jumpscareComplete && (
-        <HamoodDancer hamoodAudioSrc={hamoodAudioSrc} />
-      )}
-      
-      {/* Instructions overlay (only visible before jumpscare) */}
-      {!jumpscareComplete && !showJumpscare && (
-        <div className="fixed top-4 right-4 z-40 text-red-400 text-sm opacity-60">
-          <p>Upload your Hamood Habibi MP3 and update the hamoodAudioSrc variable</p>
-        </div>
-      )}
+      {/* Hamood Dancer with audio playing in background */}
+      <HamoodDancer hamoodAudioSrc={hamoodAudioSrc} />
     </div>
   );
 };
