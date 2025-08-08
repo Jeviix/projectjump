@@ -1,7 +1,8 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import ScaryJumpscare from '@/components/ScaryJumpscare';
 import ScaryBackground from '@/components/ScaryBackground';
 import HamoodDancer from '@/components/HamoodDancer';
+import jumpscareImage from '@/assets/jumpscare.jpg';
 
 const hamoodAudioSrc = "/hamouddddddddd.mp3";
 
@@ -13,6 +14,17 @@ const Index = () => {
   const [attempt, setAttempt] = useState(1);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
+
+  // Preload jumpscare assets on component mount
+  useEffect(() => {
+    // Preload jumpscare image
+    const preloadJumpscareImage = new Image();
+    preloadJumpscareImage.src = jumpscareImage;
+    
+    // Preload hamood audio
+    const preloadAudio = new Audio(hamoodAudioSrc);
+    preloadAudio.load();
+  }, []);
 
   // Start the test
   const handleStart = () => {
@@ -48,6 +60,8 @@ const Index = () => {
           audioEl.volume = 1.0;
           setAudio(audioEl);
         }
+        // Ensure audio is ready to play
+        audioEl.load();
         audioEl.play().catch(() => {});
         setPhase('jumpscare');
       } else {

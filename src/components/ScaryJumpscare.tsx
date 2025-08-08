@@ -9,10 +9,39 @@ interface ScaryJumpscareProps {
 const ScaryJumpscare = ({ onJumpscareComplete }: ScaryJumpscareProps) => {
   const [showJumpscare, setShowJumpscare] = useState(false);
   const [isFlashing, setIsFlashing] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    // Request fullscreen immediately
+    // Preload the jumpscare image
+    const preloadImage = new Image();
+    preloadImage.onload = () => {
+      setIsLoaded(true);
+      // Start jumpscare immediately after image loads
+      setShowJumpscare(true);
+      setIsFlashing(true);
+      
+      // Play jumpscare sound effect
+      const jumpscareAudio = new Audio();
+      jumpscareAudio.volume = 1.0;
+      jumpscareAudio.loop = true;
+      jumpscareAudio.src = 'data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmkcBjiR2OvWfS4NKn/L8+WURE0xh8bc4LNlIgMtgNrJdSwNGX/LUDhtHjKCDsfsUmk5hNEsdTm2mO+t2wGgmtxhSV0LsB5iOy1Bq1yfBSJ3kWOKCT1cGCIwrwbNcJjZNKZlNqk7ppdfLKHjTSNjOjNyoGBVTrXh3Oj';
+      jumpscareAudio.play().catch(() => {});
+
+      // Flash effect loops
+      const flashInterval = setInterval(() => {
+        setIsFlashing(prev => !prev);
+      }, 100);
+
+      return () => {
+        clearInterval(flashInterval);
+        jumpscareAudio.pause();
+      };
+    };
+    preloadImage.src = jumpscareImage;
+
+    // Request fullscreen
     const requestFullscreen = async () => {
       try {
         if (document.documentElement.requestFullscreen) {
@@ -22,40 +51,16 @@ const ScaryJumpscare = ({ onJumpscareComplete }: ScaryJumpscareProps) => {
         console.log('Fullscreen request failed:', error);
       }
     };
-
     requestFullscreen();
 
-    // IMMEDIATE jumpscare - no delay
-    setShowJumpscare(true);
-    setIsFlashing(true);
-    
-    // Play jumpscare sound effect (you can replace with your own)
-    const jumpscareAudio = new Audio();
-    jumpscareAudio.volume = 1.0;
-    jumpscareAudio.loop = true; // Loop the jumpscare sound
-    // Using a data URL for a quick jumpscare sound - replace with your MP3
-    jumpscareAudio.src = 'data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmkcBjiR2OvWfS4NKn/L8+WURE0xh8bc4LNlIgMtgNrJdSwNGX/LUDhtHjKCDsfsUmk5hNEsdTm2mO+t2wGgmtxhSV0LsB5iOy1Bq1yfBSJ3kWOKCT1cGCIwrwbNcJjZNKZlNqk7ppdfLKHjTSNjOjNyoGBVTrXh3Oj';
-    jumpscareAudio.play().catch(() => {});
-
-    // Flash effect loops
-    const flashInterval = setInterval(() => {
-      setIsFlashing(prev => !prev);
-    }, 100);
-
-    // Never hide the jumpscare - it loops forever
-    // Remove the timer that would hide it
-
-    return () => {
-      clearInterval(flashInterval);
-      jumpscareAudio.pause();
-    };
   }, []);
 
   return (
     <div className="fixed inset-0 w-screen h-screen z-50 bg-black">
-      {showJumpscare && (
+      {showJumpscare && isLoaded && (
         <div className="absolute inset-0 w-full h-full flex items-center justify-center shake" style={{background: 'black'}}>
           <img 
+            ref={imageRef}
             src={jumpscareImage} 
             alt="JUMPSCARE!" 
             className="absolute inset-0 w-full h-full object-cover jumpscare-pop"
